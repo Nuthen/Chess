@@ -7,8 +7,13 @@ function Piece:initialize(x, y, color)
 	self.offsetX = game.board.offsetX
 	self.offsetY = game.board.offsetY
 	
-	self.width = 40
-	self.height = 40
+	self.width = 50
+	self.height = 50
+	
+	if self.img then
+		self.width = self.image:getWidth()
+		self.height = self.image:getHeight()
+	end
 	
 	self.color = color
 	
@@ -34,7 +39,11 @@ function Piece:draw()
 		
 		love.graphics.setColor(r, g, b, a)
 		
-		love.graphics.rectangle('fill', self.realX-self.width/2 + self.offsetX, self.realY-self.height/2 + self.offsetY, self.width, self.height)
+		if self.image then
+			love.graphics.draw(self.image, self.realX-self.width/2 + self.offsetX, self.realY-self.height/2 + self.offsetY)
+		else
+			love.graphics.rectangle('fill', self.realX-self.width/2 + self.offsetX, self.realY-self.height/2 + self.offsetY, self.width, self.height)
+		end
 	end
 end
 
@@ -44,12 +53,16 @@ function Piece:setLocation(x, y, first)
 	if first or self.x ~= x or self.y ~= y then
 		if first or self.canMove(x, y) or self.canCapture(x, y) then
 			if not first and not game.board.tiles[y][x].piece or first or self.canCapture(x, y)then
+				local capture = false
+			
 				-- redundant check
 				if self.canCapture(x, y) then
 					game.board.tiles[y][x].piece.x = 0
 					game.board.tiles[y][x].piece.y = 0
 					game.board.tiles[y][x].piece.state = 'captured'
 					game.board.tiles[y][x].piece = nil
+					
+					--capture = 
 				end
 				
 				if self.x and self.y then
@@ -67,6 +80,8 @@ function Piece:setLocation(x, y, first)
 				game.board.tiles[self.y][self.x].piece = self
 				
 				self.selected = false
+				
+				return true
 			end
 		end
 	end

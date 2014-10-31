@@ -77,5 +77,7 @@ function Rook:initialize(x, y, color)
 		end
 	end
 	
+	self.image = love.graphics.newImage('img/frankenstein.png')
+	
 	Piece.initialize(self, x, y, color)
 end

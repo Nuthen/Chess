@@ -20,6 +20,8 @@ require 'entities.pieces.pawn'
 require 'entities.pieces.rook'
 require 'entities.pieces.knight'
 require 'entities.pieces.king'
+require 'entities.pieces.bishop'
+require 'entities.pieces.queen'
 
 
 function love.load()

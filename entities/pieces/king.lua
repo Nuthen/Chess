@@ -17,5 +17,7 @@ function King:initialize(x, y, color)
 		end
 	end
 	
+	self.image = love.graphics.newImage('img/pikachu.png')
+	
 	Piece.initialize(self, x, y, color)
 end

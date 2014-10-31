@@ -17,5 +17,7 @@ function Knight:initialize(x, y, color)
 		end
 	end
 	
+	self.image = love.graphics.newImage('img/ghost.png')
+	
 	Piece.initialize(self, x, y, color)
 end
